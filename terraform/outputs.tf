@@ -3,6 +3,10 @@ output "jdbc_pgsql_connection_string_foodcoreapi" {
   sensitive = true
 }
 
+output "pgsql_fqdn" {
+  value = module.database.pgsql_fqdn
+}
+
 output "pgsql_admin_username_foodcoreapi" {
   value = module.database.pgsql_admin_username_foodcoreapi
   sensitive = true

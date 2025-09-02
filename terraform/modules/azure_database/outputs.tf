@@ -3,6 +3,10 @@ output "jdbc_pgsql_connection_string_foodcoreapi" {
   sensitive = true
 }
 
+output "pgsql_fqdn" {
+  value = azurerm_postgresql_flexible_server.psqlflexibleserver.fqdn
+}
+
 output "pgsql_admin_username_foodcoreapi" {
   value = var.administrator_login
   sensitive = true

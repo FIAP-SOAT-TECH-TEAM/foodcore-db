@@ -58,3 +58,19 @@
     type        = string
     description = "SKU do banco de dados"
   }
+
+# VNET
+  variable "vnet_aks_subnet_prefix" {
+    description = "Prefixo de endereço da subrede do AKS"
+    type        = list(string)
+  }
+
+  variable "db_subnet_id" {
+    description = "ID da subrede do banco de dados"
+    type        = string
+  }
+
+  variable "private_dns_zone_id" {
+    description = "ID da zona DNS privada"
+    type        = string
+  }
