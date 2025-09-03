@@ -5,7 +5,7 @@ module "database" {
   location                = data.terraform_remote_state.infra.outputs.location
   vnet_aks_subnet_prefix  = data.terraform_remote_state.infra.outputs.vnet_aks_subnet_prefix
   db_subnet_id            = data.terraform_remote_state.infra.outputs.db_subnet_id
-  private_dns_zone_id     = data.terraform_remote_state.infra.outputs.private_dns_zone_id
+  private_dns_zone_id     = data.terraform_remote_state.infra.outputs.pgsql_private_dns_zone_id
   db_charset              = var.db_charset
   db_collation            = var.db_collation
   db_version              = var.db_version
