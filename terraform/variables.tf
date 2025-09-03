@@ -58,7 +58,7 @@
   variable "db_storage_mb" {
     type        = number
     description = "Tamanho do armazenamento do banco de dados em MB"
-    default     = 10000
+    default     = 32768
   }
 
   variable "db_sku_name" {
