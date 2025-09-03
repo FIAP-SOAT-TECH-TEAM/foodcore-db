@@ -42,7 +42,7 @@
   variable "db_version" {
     type        = string
     description = "Versão do banco de dados"
-    default     = "12"
+    default     = "16"
   }
 
   variable "administrator_login" {
