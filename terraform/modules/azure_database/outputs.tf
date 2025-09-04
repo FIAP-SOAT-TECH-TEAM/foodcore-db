@@ -7,6 +7,11 @@ output "pgsql_fqdn" {
   value = azurerm_postgresql_flexible_server.psqlflexibleserver.fqdn
 }
 
+output "pgsql_database_name" {
+  value = azurerm_postgresql_flexible_server_database.foodcore_pgsql_database.name
+  sensitive = true
+}
+
 output "pgsql_admin_username_foodcoreapi" {
   value = var.administrator_login
   sensitive = true

@@ -7,6 +7,11 @@ output "pgsql_fqdn" {
   value = module.database.pgsql_fqdn
 }
 
+output "pgsql_database_name" {
+  value = module.database.pgsql_database_name
+  sensitive = true
+}
+
 output "pgsql_admin_username_foodcoreapi" {
   value = module.database.pgsql_admin_username_foodcoreapi
   sensitive = true
