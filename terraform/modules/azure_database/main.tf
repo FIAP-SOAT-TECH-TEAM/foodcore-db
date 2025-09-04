@@ -36,6 +36,15 @@ resource "azurerm_postgresql_flexible_server" "psqlflexibleserver" {
   delegated_subnet_id           = var.db_subnet_id
   private_dns_zone_id           = var.private_dns_zone_id
   public_network_access_enabled = false
+
+  # Ignora alterações nessas propriedades para evitar recriações desnecessárias
+  # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#zone
+  lifecycle {
+    ignore_changes = [
+      zone,
+      high_availability[0].standby_availability_zone
+    ]
+  }
 }
 
 resource "azurerm_postgresql_flexible_server_database" "foodcore_pgsql_database" {
