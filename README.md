@@ -23,6 +23,21 @@ Ele é provisionado no **Azure Database for PostgreSQL** via **Terraform** e est
 - **Terraform**
 - **GitHub Actions** para CI/CD
 
+### Recursos provisionados
+
+- **Azure PostgreSQL Flexible Server**
+
+### Recursos delegados pelo repo de infra
+
+- **Subnet delegada**
+- **Zona de DNS privada**
+
+### Observações
+
+- Não foram configurados **backups customizados** ou **alta disponibilidade (HA/ZRS)** devido a limitações de crédito e ao caráter acadêmico da atividade.
+- Os **scripts de migration** estão no repo da **API** (e não no repo de DB), pois sobem junto com a aplicação.
+- Utilizamos **Liquibase** para gerenciar migrations (não Flyway).
+
 <h2 id="banco-de-dados">💾 Banco de Dados</h2>
 
 ### Modelo Relacional
