@@ -18,14 +18,15 @@ Ele é provisionado no **Azure Database for PostgreSQL** via **Terraform** e est
 
 <h2 id="tecnologias">🔧 Tecnologias</h2>
 
+- **Azure Cloud**
 - **PostgreSQL (Azure Database)**
-- **Flyway/Migrations**
 - **Terraform**
 - **GitHub Actions** para CI/CD
 
 ### Recursos provisionados
 
 - **Azure PostgreSQL Flexible Server**
+- **Network security group para o banco de dados**
 
 ### Recursos delegados pelo repo de infra
 
@@ -36,7 +37,7 @@ Ele é provisionado no **Azure Database for PostgreSQL** via **Terraform** e est
 
 - Não foram configurados **backups customizados** ou **alta disponibilidade (HA/ZRS)** devido a limitações de crédito e ao caráter acadêmico da atividade.
 - Os **scripts de migration** estão no repo da **API** (e não no repo de DB), pois sobem junto com a aplicação.
-- Utilizamos **Liquibase** para gerenciar migrations (não Flyway).
+- Utilizamos **Liquibase** para gerenciar migrations.
 
 <h2 id="banco-de-dados">💾 Banco de Dados</h2>
 
@@ -52,33 +53,6 @@ O sistema utiliza PostgreSQL como banco de dados principal, com o seguinte esque
 - Índices otimizam consultas de acompanhamento.
 - Enum padroniza categorias e status, evitando inconsistências.
 - Estrutura segue **3FN (Terceira Forma Normal)** → evita redundância e melhora escalabilidade.
-
-### Gerenciamento de Migrações
-
-O projeto utiliza `Liquibase` para gerenciar migrações de banco de dados, organizadas por módulo:
-
-```
-src/main/resources/db/changelog/
-├── db.changelog-master.yaml          # Arquivo principal
-├── modules/                          # Migrations separadas por módulo
-│   ├── order/
-│   │   ├── 01-order-tables.sql
-│   │   ├── 02-order-indexes.sql
-│   │   └── 03-order-seed.sql
-│   ├── user/
-│   ├── catalog/
-│   └── payment/
-└── shared/
-    └── 00-init-schema.sql
-```
-
-As migrações são aplicadas automaticamente durante a inicialização da aplicação, mas também podem ser executadas
-manualmente pelo CLI [food](https://github.com/FIAP-SOAT-TECH-TEAM/foodcore-api?tab=readme-ov-file#iniciando-a-aplica%C3%A7%C3%A3o-localmente-via-script-centralizador):
-
-```bash
-./food db:up     # Aplicar migrações
-./food db:reset  # Resetar e recriar o banco de dados
-```
 
 ### Acesso ao Banco de Dados
 
