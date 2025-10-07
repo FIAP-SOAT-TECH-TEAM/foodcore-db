@@ -9,6 +9,8 @@ da FIAP (Tech Challenge).
   <a href="#banco-de-dados">Banco de Dados</a>
 </div><br>
 
+> 📽️ Vídeo de demonstração da arquitetura: [https://www.youtube.com/watch?v=soaATSbSRPc](https://www.youtube.com/watch?v=XgUpOKJjqak)<br>
+
 ## 📖 Visão Geral
 
 Este repositório contém os scripts de criação e evolução do **banco de dados PostgreSQL** utilizado pela aplicação **FoodCore API**.
