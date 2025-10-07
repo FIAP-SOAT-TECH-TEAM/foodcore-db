@@ -54,17 +54,4 @@ O sistema utiliza PostgreSQL como banco de dados principal, com o seguinte esque
 - Enum padroniza categorias e status, evitando inconsistências.
 - Estrutura segue **3FN (Terceira Forma Normal)** → evita redundância e melhora escalabilidade.
 
-### Acesso ao Banco de Dados
-
-Para acessar o banco de dados durante o desenvolvimento, utilize o Adminer disponível em:
-<http://localhost:8081>
-
-Credenciais:
-
-- Sistema: PostgreSQL
-- Servidor: db
-- Usuário: postgres
-- Senha: postgres
-- Banco: fastfood
-
 </details>
