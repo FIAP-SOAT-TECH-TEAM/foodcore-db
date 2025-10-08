@@ -87,7 +87,7 @@ Esse fluxo garante segurança, rastreabilidade e aprovação formal antes de qua
    - O resultado do `plan` é exibido diretamente nos logs do pipeline, permitindo revisão técnica pelos aprovadores.
 
 3. **Revisão e Aprovação**
-   - O repositório é **protegido**, exigindo no mínimo **1 aprovação** antes do merge.
+   - O repositório é **protegido**, exigindo no mínimo **1 aprovação** de um codeowner antes do merge.
    - Nenhum usuário pode aplicar alterações diretamente na branch principal (`main` ou `master`).
    - Revisores devem garantir:
      - Que o `plan` não tenha destruições indevidas (`destroy`)
