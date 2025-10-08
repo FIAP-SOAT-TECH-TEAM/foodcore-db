@@ -50,6 +50,8 @@ O sistema utiliza PostgreSQL como banco de dados principal, com o seguinte esque
 
 ![Diagrama Entidade e Relacionamento](docs/diagrams/DER.svg)
 
+---
+
 ## 🔧 Justificativa da Modelagem
 
 - Separação entre `orders` e `order_items` garante flexibilidade para combos.
