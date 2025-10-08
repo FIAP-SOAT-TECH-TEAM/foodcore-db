@@ -61,6 +61,8 @@ O sistema utiliza PostgreSQL como banco de dados principal, com o seguinte esque
 
 </details>
 
+---
+
 <h3 id="cicd-infra">🔐 Governança e Fluxo de Deploy de Infraestrutura</h3>
 
 A gestão da infraestrutura segue um processo **automatizado, auditável e controlado** via **Pull Requests** no repositório de provisionamento.
