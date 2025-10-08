@@ -10,6 +10,8 @@ da FIAP (Tech Challenge).
   <a href="#cicd-infra">Governança e Fluxo de Deploy</a>
 </div><br>
 
+> 📽️ Vídeo de demonstração da arquitetura: [https://www.youtube.com/watch?v=soaATSbSRPc](https://www.youtube.com/watch?v=XgUpOKJjqak)<br>
+
 ## 📖 Visão Geral
 
 Este repositório contém os scripts de criação e evolução do **banco de dados PostgreSQL** utilizado pela aplicação **FoodCore API**.
