@@ -25,44 +25,109 @@
     description = "Chave do arquivo tfstate do foodcore-infra"
   }
 
-# Azure Database
+# PostgreSQL Flexible Server
 
-  variable "db_charset" {
+  variable "pgsql_flex_db_charset" {
     type        = string
     description = "Charset do banco de dados"
     default     = "UTF8"
   }
 
-  variable "db_collation" {
+  variable "pgsql_flex_db_collation" {
     type        = string
     description = "Collation do banco de dados"
     default     = "en_US.utf8"
   }
 
-  variable "db_version" {
+  variable "pgsql_flex_db_version" {
     type        = string
     description = "Versão do banco de dados"
     default     = "16"
   }
 
-  variable "administrator_login" {
+  variable "pgsql_flex_administrator_login" {
     type        = string
     description = "Login do administrador do banco de dados"
   }
 
-  variable "administrator_password" {
+  variable "pgsql_flex_administrator_password" {
     type        = string
     description = "Senha do administrador do banco de dados"
   }
 
-  variable "db_storage_mb" {
+  variable "pgsql_flex_db_storage_mb" {
     type        = number
     description = "Tamanho do armazenamento do banco de dados em MB"
     default     = 32768
   }
 
-  variable "db_sku_name" {
+  variable "pgsql_flex_db_sku_name" {
     type        = string
     description = "SKU do banco de dados"
     default     = "B_Standard_B1ms"
   }
+
+  variable "pgsql_flex_db_zone" {
+    description = "Zona de disponibilidade do banco de dados"
+    type        = number
+    default     = 1
+  }
+
+  variable "pgsql_flex_ha_zone" {
+    description = "Zona de disponibilidade secundária para alta disponibilidade"
+    type        = number
+    default     = 2
+  }
+
+
+# Cosmos DB
+  variable "azcosmosdb_offer_type" {
+    type        = string
+    description = "O tipo de oferta para a conta do Cosmos DB. Exemplo: Standard."
+    default     = "Standard"
+  }
+
+  variable "azcosmosdb_kind" {
+    type        = string
+    description = "O tipo de conta do Cosmos DB. Exemplo: GlobalDocumentDB, MongoDB, Cassandra, Gremlin, Table."
+    default     = "GlobalDocumentDB"
+  }
+
+  variable "azcosmosdb_automatic_failover" {
+    type        = bool
+    description = "Habilita ou desabilita o failover automático para a conta do Cosmos DB."
+    default     = true
+  }
+
+  variable "azcosmosdb_failover_priority" {
+    type        = number
+    description = "Define a prioridade de failover para a localização secundária do Cosmos DB."
+    default     = 0
+  }
+
+  variable "azcosmosdb_zone_redundant" {
+    type        = bool
+    description = "Habilita ou desabilita a redundância de zona para a conta do Cosmos DB."
+    default     = true
+  }
+
+  variable "azcosmosdb_consistency_level" {
+    type        = string
+    description = "O nível de consistência para a conta do Cosmos DB. Exemplo: Eventual, Session, BoundedStaleness, Strong, ConsistentPrefix."
+    default     = "Session"
+  }
+
+# VNET
+
+  variable "cosmosdb_subnet_prefix" {
+    description = "Prefixo de endereço da subrede para Azure Cosmos DB"
+    type        = list(string)
+    default     = ["10.0.5.0/24"]
+  }
+  
+  variable "pgsql_flex_subnet_prefix" {
+    description = "Prefixo de endereço da subrede para PostgreSQL Flexible Server"
+    type        = list(string)
+    default     = ["10.0.6.0/24"]
+  }
+  
