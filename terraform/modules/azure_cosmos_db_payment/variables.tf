@@ -51,3 +51,7 @@
       type        = string
       description = "O ID da subnet onde o Private Endpoint do Cosmos DB será criado."
     }
+    variable "azcosmosdb_private_dns_id" {
+      type        = string
+      description = "O ID da zona DNS privada para o Private Endpoint do Cosmos DB."
+    }

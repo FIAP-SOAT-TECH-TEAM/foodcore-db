@@ -41,7 +41,7 @@ resource "azurerm_private_endpoint" "cosmosdb_private_endpoint" {
   private_dns_zone_group {
     name                 = "${var.dns_prefix}-cosmosdb-payment-dns-zone-group"
     private_dns_zone_ids = [
-      azurerm_private_dns_zone.cosmosdb_private_dns.id
+      var.azcosmosdb_private_dns_id
     ]
   }
 }
