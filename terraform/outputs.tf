@@ -1,4 +1,4 @@
-# Order
+# PGSQL Order
 
   output "jdbc_pgsql_uri_order" {
     value = module.pgsql_flex_server_order.jdbc_pgsql_uri_order
@@ -24,7 +24,7 @@
     sensitive = true
   }
 
-# Catalog
+# PGSQL Catalog
 
   output "jdbc_pgsql_uri_catalog" {
     value = module.pgsql_flex_server_catalog.jdbc_pgsql_uri_catalog
@@ -50,17 +50,17 @@
     sensitive = true
   }
 
-# Payment
+# Azure Cosmos DB Payment
 
-  output "azcosmosdb_endpoint_payment" {
-    value = module.cosmosdb_payment.azcosmosdb_endpoint_payment
-  }
+  # output "azcosmosdb_endpoint_payment" {
+  #   value = module.cosmosdb_payment.azcosmosdb_endpoint_payment
+  # }
 
-  output "azcosmosdb_database_payment" {
-    value = module.cosmosdb_payment.azcosmosdb_database_payment
-  }
+  # output "azcosmosdb_database_payment" {
+  #   value = module.cosmosdb_payment.azcosmosdb_database_payment
+  # }
 
-  output "azcosmosdb_key_payment" {
-    value     = module.cosmosdb_payment.azcosmosdb_key_payment
-    sensitive = true
-  }
+  # output "azcosmosdb_key_payment" {
+  #   value     = module.cosmosdb_payment.azcosmosdb_key_payment
+  #   sensitive = true
+  # }
