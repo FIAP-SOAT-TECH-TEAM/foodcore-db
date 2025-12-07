@@ -70,13 +70,13 @@
   variable "pgsql_flex_db_zone" {
     description = "Zona de disponibilidade do banco de dados"
     type        = number
-    default     = 1
+    default     = 2
   }
 
   variable "pgsql_flex_ha_zone" {
     description = "Zona de disponibilidade secundária para alta disponibilidade"
     type        = number
-    default     = 2
+    default     = 3
   }
 
 
