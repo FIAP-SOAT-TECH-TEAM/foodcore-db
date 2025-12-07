@@ -22,55 +22,60 @@
     type = string
   }
 
-# Azure Database
+# PostgreSQL Flexible Server
 
-  variable "db_charset" {
+  variable "pgsql_flex_db_charset" {
     type        = string
     description = "Charset do banco de dados"
   }
 
-  variable "db_collation" {
+  variable "pgsql_flex_db_collation" {
     type        = string
     description = "Collation do banco de dados"
   }
 
-  variable "db_version" {
+  variable "pgsql_flex_db_version" {
     type        = string
     description = "Versão do banco de dados"
   }
 
-  variable "administrator_login" {
+  variable "pgsql_flex_administrator_login" {
     type        = string
     description = "Login do administrador do banco de dados"
   }
 
-  variable "administrator_password" {
+  variable "pgsql_flex_administrator_password" {
     type        = string
     description = "Senha do administrador do banco de dados"
   }
 
-  variable "db_storage_mb" {
+  variable "pgsql_flex_db_storage_mb" {
     type        = number
     description = "Tamanho do armazenamento do banco de dados em MB"
   }
 
-  variable "db_sku_name" {
+  variable "pgsql_flex_db_sku_name" {
     type        = string
     description = "SKU do banco de dados"
   }
 
-# VNET
-  variable "vnet_aks_subnet_prefix" {
-    description = "Prefixo de endereço da subrede do AKS"
-    type        = list(string)
+  variable "pgsql_flex_db_zone" {
+    description = "Zona de disponibilidade do banco de dados"
+    type        = number
   }
 
-  variable "db_subnet_id" {
+  variable "pgsql_flex_ha_zone" {
+    description = "Zona de disponibilidade secundária para alta disponibilidade"
+    type        = number
+  }
+
+# VNET
+  variable "pgsql_flex_subnet_id" {
     description = "ID da subrede do banco de dados"
     type        = string
   }
 
-  variable "private_dns_zone_id" {
+  variable "pgsql_flex_private_dns_zone_id" {
     description = "ID da zona DNS privada"
     type        = string
   }

@@ -1,23 +1,66 @@
-output "jdbc_pgsql_connection_string_foodcoreapi" {
-  value = module.database.jdbc_pgsql_connection_string_foodcoreapi
-  sensitive = true
-}
+# Order
 
-output "pgsql_fqdn" {
-  value = module.database.pgsql_fqdn
-}
+  output "jdbc_pgsql_uri_order" {
+    value = module.pgsql_flex_server_order.jdbc_pgsql_uri_order
+    sensitive = true
+  }
 
-output "pgsql_database_name" {
-  value = module.database.pgsql_database_name
-  sensitive = true
-}
+  output "pgsql_fqdn_order" {
+    value = module.pgsql_flex_server_order.pgsql_fqdn_order
+  }
 
-output "pgsql_admin_username_foodcoreapi" {
-  value = module.database.pgsql_admin_username_foodcoreapi
-  sensitive = true
-}
+  output "pgsql_database_name_order" {
+    value = module.pgsql_flex_server_order.pgsql_database_name_order
+    sensitive = true
+  }
 
-output "pgsql_admin_password_foodcoreapi" {
-  value = module.database.pgsql_admin_password_foodcoreapi
-  sensitive = true
-}
+  output "pgsql_admin_username_order" {
+    value = module.pgsql_flex_server_order.pgsql_admin_username_order
+    sensitive = true
+  }
+
+  output "pgsql_admin_password_order" {
+    value = module.pgsql_flex_server_order.pgsql_admin_password_order
+    sensitive = true
+  }
+
+# Catalog
+
+  output "jdbc_pgsql_uri_catalog" {
+    value = module.pgsql_flex_server_catalog.jdbc_pgsql_uri_catalog
+    sensitive = true
+  }
+
+  output "pgsql_fqdn_catalog" {
+    value = module.pgsql_flex_server_catalog.pgsql_fqdn_catalog
+  }
+
+  output "pgsql_database_name_catalog" {
+    value = module.pgsql_flex_server_catalog.pgsql_database_name_catalog
+    sensitive = true
+  }
+
+  output "pgsql_admin_username_catalog" {
+    value = module.pgsql_flex_server_catalog.pgsql_admin_username_catalog
+    sensitive = true
+  }
+
+  output "pgsql_admin_password_catalog" {
+    value = module.pgsql_flex_server_catalog.pgsql_admin_password_catalog
+    sensitive = true
+  }
+
+# Payment
+
+  output "azcosmosdb_endpoint_payment" {
+    value = module.cosmosdb_payment.azcosmosdb_endpoint_payment
+  }
+
+  output "azcosmosdb_database_payment" {
+    value = module.cosmosdb_payment.azcosmosdb_database_payment
+  }
+
+  output "azcosmosdb_key_payment" {
+    value     = module.cosmosdb_payment.azcosmosdb_key_payment
+    sensitive = true
+  }
