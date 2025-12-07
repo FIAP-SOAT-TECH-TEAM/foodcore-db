@@ -24,8 +24,6 @@ module "pgsql_flex_server_catalog" {
   pgsql_flex_administrator_password   = var.pgsql_flex_administrator_password
   pgsql_flex_db_storage_mb            = var.pgsql_flex_db_storage_mb
   pgsql_flex_db_sku_name              = var.pgsql_flex_db_sku_name
-  pgsql_flex_db_zone                  = var.pgsql_flex_db_zone
-  pgsql_flex_ha_zone                  = var.pgsql_flex_ha_zone
 }
 
 module "pgsql_flex_server_order" {
@@ -41,9 +39,7 @@ module "pgsql_flex_server_order" {
   pgsql_flex_administrator_login      = var.pgsql_flex_administrator_login
   pgsql_flex_administrator_password   = var.pgsql_flex_administrator_password
   pgsql_flex_db_storage_mb            = var.pgsql_flex_db_storage_mb
-  pgsql_flex_db_sku_name              = var.pgsql_flex_db_sku_name
-  pgsql_flex_db_zone                  = var.pgsql_flex_db_zone
-  pgsql_flex_ha_zone                  = var.pgsql_flex_ha_zone   
+  pgsql_flex_db_sku_name              = var.pgsql_flex_db_sku_name 
 }
 
 # module "cosmosdb_payment" {

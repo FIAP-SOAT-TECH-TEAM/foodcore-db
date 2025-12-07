@@ -67,19 +67,6 @@
     default     = "GP_Standard_D2s_v3"
   }
 
-  variable "pgsql_flex_db_zone" {
-    description = "Zona de disponibilidade do banco de dados"
-    type        = number
-    default     = 2
-  }
-
-  variable "pgsql_flex_ha_zone" {
-    description = "Zona de disponibilidade secundária para alta disponibilidade"
-    type        = number
-    default     = 3
-  }
-
-
 # Cosmos DB
   variable "azcosmosdb_offer_type" {
     type        = string
