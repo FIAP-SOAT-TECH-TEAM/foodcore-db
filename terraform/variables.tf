@@ -122,12 +122,12 @@
   variable "cosmosdb_subnet_prefix" {
     description = "Prefixo de endereço da subrede para Azure Cosmos DB"
     type        = list(string)
-    default     = ["10.0.5.0/24"]
+    default     = ["10.0.6.0/24"]
   }
   
   variable "pgsql_flex_subnet_prefix" {
     description = "Prefixo de endereço da subrede para PostgreSQL Flexible Server"
     type        = list(string)
-    default     = ["10.0.6.0/24"]
+    default     = ["10.0.7.0/24"]
   }
   
