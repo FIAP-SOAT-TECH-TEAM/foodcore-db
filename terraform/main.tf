@@ -15,8 +15,8 @@ module "pgsql_flex_server_catalog" {
   dns_prefix                          = data.terraform_remote_state.infra.outputs.dns_prefix
   resource_group_name                 = data.terraform_remote_state.infra.outputs.resource_group_name
   location                            = data.terraform_remote_state.infra.outputs.location
-  pgsql_flex_subnet_id                = data.terraform_remote_state.infra.outputs.db_subnet_id
-  pgsql_flex_private_dns_zone_id      = data.terraform_remote_state.infra.outputs.pgsql_private_dns_zone_id
+  pgsql_flex_subnet_id                = module.vnet.pgsql_flex_subnet_id
+  pgsql_flex_private_dns_zone_id      = module.vnet.pgsql_flex_private_dns_id
   pgsql_flex_db_charset               = var.pgsql_flex_db_charset
   pgsql_flex_db_collation             = var.pgsql_flex_db_collation
   pgsql_flex_db_version               = var.pgsql_flex_db_version
@@ -33,8 +33,8 @@ module "pgsql_flex_server_order" {
   dns_prefix                          = data.terraform_remote_state.infra.outputs.dns_prefix
   resource_group_name                 = data.terraform_remote_state.infra.outputs.resource_group_name
   location                            = data.terraform_remote_state.infra.outputs.location
-  pgsql_flex_subnet_id                = data.terraform_remote_state.infra.outputs.db_subnet_id
-  pgsql_flex_private_dns_zone_id      = data.terraform_remote_state.infra.outputs.pgsql_private_dns_zone_id
+  pgsql_flex_subnet_id                = module.vnet.pgsql_flex_subnet_id
+  pgsql_flex_private_dns_zone_id      = module.vnet.pgsql_flex_private_dns_id
   pgsql_flex_db_charset               = var.pgsql_flex_db_charset
   pgsql_flex_db_collation             = var.pgsql_flex_db_collation
   pgsql_flex_db_version               = var.pgsql_flex_db_version
