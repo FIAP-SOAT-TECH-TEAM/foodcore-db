@@ -1,5 +1,8 @@
-# https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server
-# https://learn.microsoft.com/en-us/azure/developer/terraform/deploy-postgresql-flexible-server-database?tabs=azure-cli
+# Azure PostgreSQL Flexible Server Elastic Cluster ainda não suportado pelo provider terraform azurerm
+#https://github.com/hashicorp/terraform-provider-azurerm/issues/31212
+
+# Não utilizamos Réplicas de leitura pois isso pode introduzir consistência eventual nos dados em cenários de alta carga de escrita
+# https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-read-replicas#considerations
 
 resource "azurerm_postgresql_flexible_server" "psqlflexibleserver_catalog" {
   name                          = "${var.dns_prefix}-psqlflexibleserver-catalog"
@@ -14,7 +17,12 @@ resource "azurerm_postgresql_flexible_server" "psqlflexibleserver_catalog" {
   private_dns_zone_id           = var.pgsql_flex_private_dns_zone_id
   public_network_access_enabled = false
 
+  # Se a região der suporte a zonas de disponibilidade, os dados de backup serão armazenados no ZRS (armazenamento com redundância de zona) - o que não é o caso atualmente da região Brazil South
+  # Por isso, a configuração de geo_redundant_backup_enabled está habilitada para garantir a replicação dos backups em uma região secundária
+  # https://learn.microsoft.com/pt-br/azure/reliability/reliability-azure-database-postgresql?utm_source=chatgpt.com#high-availability-features
+  # https://learn.microsoft.com/pt-br/azure/reliability/reliability-azure-database-postgresql?utm_source=chatgpt.com#geo-redundant-backup-and-restore
   geo_redundant_backup_enabled  = true
+
   high_availability {
     # ZoneRedudant temporariamente desabilitada bloqueado na região Brazil South
     # https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/overview#azure-regions
