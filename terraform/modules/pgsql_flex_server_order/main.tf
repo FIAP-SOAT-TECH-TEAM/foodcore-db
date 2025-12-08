@@ -19,8 +19,8 @@ resource "azurerm_postgresql_flexible_server" "psqlflexibleserver_order" {
 
   # Se a região der suporte a zonas de disponibilidade, os dados de backup serão armazenados no ZRS (armazenamento com redundância de zona) - o que não é o caso atualmente da região Brazil South
   # Por isso, a configuração de geo_redundant_backup_enabled está habilitada para garantir a replicação dos backups em uma região secundária
-  # https://learn.microsoft.com/pt-br/azure/reliability/reliability-azure-database-postgresql?utm_source=chatgpt.com#high-availability-features
-  # https://learn.microsoft.com/pt-br/azure/reliability/reliability-azure-database-postgresql?utm_source=chatgpt.com#geo-redundant-backup-and-restore
+  # https://learn.microsoft.com/pt-br/azure/reliability/reliability-azure-database-postgresql#high-availability-features
+  # https://learn.microsoft.com/pt-br/azure/reliability/reliability-azure-database-postgresql#geo-redundant-backup-and-restore
   geo_redundant_backup_enabled  = true
 
   high_availability {
