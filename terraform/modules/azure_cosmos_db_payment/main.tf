@@ -10,11 +10,17 @@ resource "azurerm_cosmosdb_account" "azcosmosdb_account_payment" {
   geo_location {
     location          = var.location
     failover_priority = 0
+    # Evitar erros de: "Sorry, we are currently experiencing high demand in ... region for the zonal redundant (Availability Zones) accounts, and cannot fulfill your..."
+    # Apenas para fins de atividade
+    zone_redundant    = false
   }
 
   geo_location {
     location          = var.az_cosmos_db_ha_location
     failover_priority = 1
+    # Evitar erros de: "Sorry, we are currently experiencing high demand in ... region for the zonal redundant (Availability Zones) accounts, and cannot fulfill your..."
+    # Apenas para fins de atividade
+    zone_redundant    = false
   }
 
   consistency_policy {
