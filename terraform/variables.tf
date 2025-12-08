@@ -73,12 +73,6 @@
     description = "A localização secundária para alta disponibilidade do Cosmos DB."
     default     = "southcentralus"
   }
-  
-  variable "azcosmosdb_zone_redundant" {
-    type        = bool
-    description = "Habilita ou desabilita a redundância de zona para a conta do Cosmos DB."
-    default     = true
-  }
 
   variable "azcosmosdb_offer_type" {
     type        = string

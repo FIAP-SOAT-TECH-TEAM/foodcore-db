@@ -43,10 +43,6 @@
       type = number
       description = "Define a prioridade de failover para a localização secundária do Cosmos DB."
   }
-  variable "azcosmosdb_zone_redundant" {
-      type = bool
-      description = "Habilita ou desabilita a redundância de zona para a conta do Cosmos DB."
-  }
   variable "azcosmosdb_consistency_level" {
     type        = string
     description = "O nível de consistência para a conta do Cosmos DB. Exemplo: Eventual, Session, BoundedStaleness, Strong, ConsistentPrefix."
