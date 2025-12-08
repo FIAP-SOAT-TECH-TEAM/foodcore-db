@@ -14,8 +14,11 @@ resource "azurerm_postgresql_flexible_server" "psqlflexibleserver_catalog" {
   private_dns_zone_id           = var.pgsql_flex_private_dns_zone_id
   public_network_access_enabled = false
 
+  geo_redundant_backup_enabled  = true
   high_availability {
-    mode = "ZoneRedundant"
+    # ZoneRedudant temporariamente desabilitada bloqueado na região Brazil South
+    # https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/overview#azure-regions
+    mode = "SameZone"
   }
 
   # Ignora alterações nessas propriedades para evitar recriações desnecessárias
