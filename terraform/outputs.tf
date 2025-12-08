@@ -52,15 +52,15 @@
 
 # Azure Cosmos DB Payment
 
-  # output "azcosmosdb_endpoint_payment" {
-  #   value = module.cosmosdb_payment.azcosmosdb_endpoint_payment
-  # }
+  output "azcosmosdb_endpoint_payment" {
+    value = module.cosmosdb_payment.azcosmosdb_endpoint_payment
+  }
 
-  # output "azcosmosdb_database_payment" {
-  #   value = module.cosmosdb_payment.azcosmosdb_database_payment
-  # }
+  output "azcosmosdb_database_payment" {
+    value = module.cosmosdb_payment.azcosmosdb_database_payment
+  }
 
-  # output "azcosmosdb_key_payment" {
-  #   value     = module.cosmosdb_payment.azcosmosdb_key_payment
-  #   sensitive = true
-  # }
+  output "azcosmosdb_key_payment" {
+    value     = module.cosmosdb_payment.azcosmosdb_key_payment
+    sensitive = true
+  }
