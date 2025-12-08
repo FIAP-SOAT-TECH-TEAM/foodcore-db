@@ -53,7 +53,6 @@ module "cosmosdb_payment" {
   azcosmosdb_automatic_failover = var.azcosmosdb_automatic_failover
   azcosmosdb_consistency_level  = var.azcosmosdb_consistency_level
   azcosmosdb_failover_priority  = var.azcosmosdb_failover_priority
-  azcosmosdb_zone_redundant     = var.azcosmosdb_zone_redundant
   azcosmosdb_offer_type         = var.azcosmosdb_offer_type
   azcosmosdb_kind               = var.azcosmosdb_kind
 }
