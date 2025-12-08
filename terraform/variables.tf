@@ -75,7 +75,7 @@
   }
 
   # Região brasilsoutheast ainda não tem suporte a zonas de disponibilidade
-  # https://learn.microsoft.com/pt-br/azure/reliability/regions-list?utm_source=chatgpt.com#azure-regions-list-1
+  # https://learn.microsoft.com/pt-br/azure/reliability/regions-list#azure-regions-list-1
   variable "azcosmosdb_zone_redundant" {
     type        = bool
     description = "Habilita ou desabilita a redundância de zona para a conta do Cosmos DB."
