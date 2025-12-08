@@ -68,6 +68,11 @@
   }
 
 # Cosmos DB
+  variable "az_cosmos_db_ha_location" {
+    type        = string
+    description = "A localização secundária para alta disponibilidade do Cosmos DB."
+    default     = "brazilsoutheast"
+  }
   variable "azcosmosdb_offer_type" {
     type        = string
     description = "O tipo de oferta para a conta do Cosmos DB. Exemplo: Standard."

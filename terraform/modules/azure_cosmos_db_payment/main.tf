@@ -8,7 +8,7 @@ resource "azurerm_cosmosdb_account" "azcosmosdb_account_payment" {
   public_network_access_enabled = false
   
   geo_location {
-    location          = var.location
+    location          = var.az_cosmos_db_ha_location
     failover_priority = var.azcosmosdb_failover_priority
     zone_redundant    = var.azcosmosdb_zone_redundant
   }

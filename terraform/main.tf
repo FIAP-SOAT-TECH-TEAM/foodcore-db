@@ -47,6 +47,7 @@ module "cosmosdb_payment" {
   dns_prefix                    = data.terraform_remote_state.infra.outputs.dns_prefix
   resource_group_name           = data.terraform_remote_state.infra.outputs.resource_group_name
   location                      = data.terraform_remote_state.infra.outputs.location
+  az_cosmos_db_ha_location      = var.az_cosmos_db_ha_location
   azcosmosdb_subnet_id          = module.vnet.cosmosdb_subnet_id
   azcosmosdb_private_dns_id     = module.vnet.cosmosdb_private_dns_id
   azcosmosdb_automatic_failover = var.azcosmosdb_automatic_failover
