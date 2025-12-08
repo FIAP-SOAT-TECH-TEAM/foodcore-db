@@ -71,15 +71,13 @@
   variable "az_cosmos_db_ha_location" {
     type        = string
     description = "A localização secundária para alta disponibilidade do Cosmos DB."
-    default     = "brazilsoutheast"
+    default     = "eastus"
   }
-
-  # Região brasilsoutheast ainda não tem suporte a zonas de disponibilidade
-  # https://learn.microsoft.com/pt-br/azure/reliability/regions-list#azure-regions-list-1
+  
   variable "azcosmosdb_zone_redundant" {
     type        = bool
     description = "Habilita ou desabilita a redundância de zona para a conta do Cosmos DB."
-    default     = false
+    default     = true
   }
 
   variable "azcosmosdb_offer_type" {
