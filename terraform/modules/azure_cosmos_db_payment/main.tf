@@ -25,6 +25,12 @@ resource "azurerm_cosmosdb_account" "azcosmosdb_account_payment" {
     zone_redundant    = false
   }
 
+  # Serverless suporta apenas uma região
+  # https://learn.microsoft.com/en-us/azure/cosmos-db/serverless#use-serverless-resources
+  # capabilities {
+  #   name = "EnableServerless"
+  # }
+
   consistency_policy {
     consistency_level = var.azcosmosdb_consistency_level
   }
