@@ -1,3 +1,5 @@
+# Combinação PACELC esperada: P:A / E:L
+
 resource "azurerm_cosmosdb_account" "azcosmosdb_account_payment" {
   name                          = "${var.dns_prefix}-azcomosdb-account-payment"
   location                      = var.location
@@ -23,10 +25,13 @@ resource "azurerm_cosmosdb_account" "azcosmosdb_account_payment" {
     zone_redundant    = false
   }
 
+  capabilities {
+    name = "EnableServerless"
+  }
+
   consistency_policy {
     consistency_level = var.azcosmosdb_consistency_level
   }
- 
 }
 
 resource "azurerm_cosmosdb_sql_database" "azcosmosdb_db_payment" {

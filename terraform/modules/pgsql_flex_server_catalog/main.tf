@@ -4,6 +4,8 @@
 # Não utilizamos Réplicas de leitura pois isso pode introduzir consistência eventual nos dados em cenários de alta carga de escrita
 # https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/concepts-read-replicas#considerations
 
+# Combinação PACELC esperada: P:C / E:C
+
 resource "azurerm_postgresql_flexible_server" "psqlflexibleserver_catalog" {
   name                          = "${var.dns_prefix}-psqlflexibleserver-catalog"
   resource_group_name           = var.resource_group_name
