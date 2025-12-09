@@ -25,10 +25,6 @@ resource "azurerm_cosmosdb_account" "azcosmosdb_account_payment" {
     zone_redundant    = false
   }
 
-  capabilities {
-    name = "EnableServerless"
-  }
-
   consistency_policy {
     consistency_level = var.azcosmosdb_consistency_level
   }
