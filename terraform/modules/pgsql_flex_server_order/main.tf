@@ -51,3 +51,42 @@ resource "azurerm_postgresql_flexible_server_database" "foodcore_pgsql_database_
     prevent_destroy = false # Permitir a destruição do banco de dados (apenas para fins da atividade)
   }
 }
+
+resource "azurerm_key_vault_secret" "pgsql_jdbc_url_order" {
+  name         = "pgsql-jdbc-url-order"
+  value        = local.pgsql_jdbc_url_order
+  key_vault_id = var.akv_id
+
+  tags = {
+    microservice = "order"
+    resource  = "postgresql"
+  }
+
+  depends_on = [ azurerm_postgresql_flexible_server_database.foodcore_pgsql_database_order ]
+}
+
+resource "azurerm_key_vault_secret" "pgsql_username_order" {
+  name         = "pgsql-username-order"
+  value        = var.pgsql_flex_administrator_login
+  key_vault_id = var.akv_id
+
+  tags = {
+    microservice = "order"
+    resource  = "postgresql"
+  }
+
+  depends_on = [ azurerm_postgresql_flexible_server_database.foodcore_pgsql_database_order ]
+}
+
+resource "azurerm_key_vault_secret" "pgsql_password_order" {
+  name         = "pgsql-password-order"
+  value        = var.pgsql_flex_administrator_password
+  key_vault_id = var.akv_id
+
+  tags = {
+    microservice = "order"
+    resource  = "postgresql"
+  }
+
+  depends_on = [ azurerm_postgresql_flexible_server_database.foodcore_pgsql_database_order ]
+}

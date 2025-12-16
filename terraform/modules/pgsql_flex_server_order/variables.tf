@@ -22,6 +22,12 @@
     type = string
   }
 
+# AKV
+  variable "akv_id" {
+    type        = string
+    description = "ID do Azure Key Vault"
+  }
+
 # PostgreSQL Flexible Server
 
   variable "pgsql_flex_db_charset" {
