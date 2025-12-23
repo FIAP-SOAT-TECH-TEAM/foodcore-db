@@ -62,3 +62,36 @@ resource "azurerm_private_endpoint" "cosmosdb_private_endpoint" {
     ]
   }
 }
+
+resource "azurerm_key_vault_secret" "cosmosdb_uri" {
+  name         = "az-cosmosdb-uri"
+  value        = azurerm_cosmosdb_account.azcosmosdb_account_payment.endpoint
+  key_vault_id = var.akv_id
+
+  tags = {
+    microservice = "payment"
+    resource  = "cosmosdb"
+  }
+}
+
+resource "azurerm_key_vault_secret" "cosmosdb_database" {
+  name         = "az-cosmosdb-database"
+  value        = azurerm_cosmosdb_sql_database.azcosmosdb_db_payment.name
+  key_vault_id = var.akv_id
+
+  tags = {
+    microservice = "payment"
+    resource  = "cosmosdb"
+  }
+}
+
+resource "azurerm_key_vault_secret" "cosmosdb_key" {
+  name         = "az-cosmosdb-key"
+  value        = azurerm_cosmosdb_account.azcosmosdb_account_payment.primary_master_key
+  key_vault_id = var.akv_id
+
+  tags = {
+    microservice = "payment"
+    resource  = "cosmosdb"
+  }
+}
