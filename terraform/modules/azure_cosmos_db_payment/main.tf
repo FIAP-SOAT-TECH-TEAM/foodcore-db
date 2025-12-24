@@ -87,7 +87,7 @@ resource "azurerm_key_vault_secret" "cosmosdb_database" {
 
 resource "azurerm_key_vault_secret" "cosmosdb_key" {
   name         = "az-cosmosdb-key"
-  value        = azurerm_cosmosdb_account.azcosmosdb_account_payment.primary_master_key
+  value        = azurerm_cosmosdb_account.azcosmosdb_account_payment.primary_key
   key_vault_id = var.akv_id
 
   tags = {
