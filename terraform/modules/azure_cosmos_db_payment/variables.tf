@@ -22,6 +22,12 @@
     type = string
   }
 
+# AKV
+  variable "akv_id" {
+    type        = string
+    description = "ID do Azure Key Vault"
+  }
+
 # Cosmos DB
   variable "az_cosmos_db_ha_location" {
     type        = string
