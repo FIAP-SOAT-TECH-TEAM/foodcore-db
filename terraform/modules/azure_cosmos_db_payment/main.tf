@@ -17,13 +17,13 @@ resource "azurerm_cosmosdb_account" "azcosmosdb_account_payment" {
     zone_redundant    = false
   }
 
-  geo_location {
-    location          = var.az_cosmos_db_ha_location
-    failover_priority = 1
-    # Evitar erros de: "Sorry, we are currently experiencing high demand in ... region for the zonal redundant (Availability Zones) accounts, and cannot fulfill your..."
-    # Apenas para fins de atividade
-    zone_redundant    = false
-  }
+  # geo_location {
+  #   location          = var.az_cosmos_db_ha_location
+  #   failover_priority = 1
+  #   # Evitar erros de: "Sorry, we are currently experiencing high demand in ... region for the zonal redundant (Availability Zones) accounts, and cannot fulfill your..."
+  #   # Apenas para fins de atividade
+  #   zone_redundant    = false
+  # }
 
   # Serverless suporta apenas uma região
   # https://learn.microsoft.com/en-us/azure/cosmos-db/serverless#use-serverless-resources
