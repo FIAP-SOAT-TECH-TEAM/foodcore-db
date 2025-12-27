@@ -64,7 +64,7 @@
   variable "pgsql_flex_db_sku_name" {
     type        = string
     description = "SKU do banco de dados"
-    default     = "GP_Standard_D2s_v3"
+    default     = "B_Standard_B1ms"
   }
 
 # Cosmos DB

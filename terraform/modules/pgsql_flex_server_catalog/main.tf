@@ -23,13 +23,13 @@ resource "azurerm_postgresql_flexible_server" "psqlflexibleserver_catalog" {
   # Por isso, a configuração de geo_redundant_backup_enabled está habilitada para garantir a replicação dos backups em uma região secundária
   # https://learn.microsoft.com/pt-br/azure/reliability/reliability-azure-database-postgresql#high-availability-features
   # https://learn.microsoft.com/pt-br/azure/reliability/reliability-azure-database-postgresql#geo-redundant-backup-and-restore
-  geo_redundant_backup_enabled  = true
+  # geo_redundant_backup_enabled  = true
 
-  high_availability {
-    # ZoneRedudant temporariamente desabilitada bloqueado na região Brazil South
-    # https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/overview#azure-regions
-    mode = "SameZone"
-  }
+  # high_availability {
+  #   # ZoneRedudant temporariamente desabilitada bloqueado na região Brazil South
+  #   # https://learn.microsoft.com/en-us/azure/postgresql/flexible-server/overview#azure-regions
+  #   mode = "SameZone"
+  # }
 
   # Ignora alterações nessas propriedades para evitar recriações desnecessárias
   # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/postgresql_flexible_server#zone
