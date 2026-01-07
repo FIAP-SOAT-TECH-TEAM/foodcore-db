@@ -54,7 +54,7 @@ Este repositório contém os scripts Terraform para provisionar os bancos de dad
 - Subnet delegada para banco de dados
 - Zona de DNS privada
 - VNET principal
-
+ 
 ---
 
 <h2 id="tecnologias">🔧 Tecnologias</h2>
