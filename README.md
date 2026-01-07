@@ -1,8 +1,9 @@
 # 🗄️ FoodCore DB
+
 <div align="center">
 
 Provisionamento de bancos de dados do projeto FoodCore via Terraform. Desenvolvido como parte do curso de Arquitetura de Software da FIAP (Tech Challenge).
-
+ 
 </div>
 
 <div align="center">
@@ -53,7 +54,7 @@ Este repositório contém os scripts Terraform para provisionar os bancos de dad
 - Subnet delegada para banco de dados
 - Zona de DNS privada
 - VNET principal
-
+ 
 ---
 
 <h2 id="tecnologias">🔧 Tecnologias</h2>
