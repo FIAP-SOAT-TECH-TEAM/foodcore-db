@@ -1,107 +1,189 @@
-# 🧾​ Food Core Database
+# 🗄️ FoodCore DB
 
-Banco de dados de pedidos e usuários para restaurantes fast-food, desenvolvida como parte do curso de Arquitetura de Software
-da FIAP (Tech Challenge).
+<div align="center">
+
+Provisionamento de bancos de dados do projeto FoodCore via Terraform. Desenvolvido como parte do curso de Arquitetura de Software da FIAP (Tech Challenge).
+
+</div>
 
 <div align="center">
   <a href="#visao-geral">Visão Geral</a> •
+  <a href="#recursos-provisionados">Recursos Provisionados</a> •
   <a href="#tecnologias">Tecnologias</a> •
-  <a href="#banco-de-dados">Banco de Dados</a>
-  <a href="#cicd-infra">Governança e Fluxo de Deploy</a>
+  <a href="#modelo-relacional">Modelo Relacional</a> •
+  <a href="#deploy">Fluxo de Deploy</a> •
+  <a href="#contribuicao">Contribuição</a>
 </div><br>
 
-> 📽️ Vídeo de demonstração da arquitetura: [https://www.youtube.com/watch?v=soaATSbSRPc](https://www.youtube.com/watch?v=XgUpOKJjqak)<br>
-
-## 📖 Visão Geral
-
-Este repositório contém os scripts de criação e evolução do **banco de dados PostgreSQL** utilizado pela aplicação **FoodCore API**.
-Ele é provisionado no **Azure Database for PostgreSQL** via **Terraform** e estruturado para suportar o fluxo de pedidos, produtos, clientes e administração.
-
-### Principais recursos
-
-<h2 id="tecnologias">🔧 Tecnologias</h2>
-
-- **Azure Cloud**
-- **PostgreSQL (Azure Database)**
-- **Terraform**
-- **GitHub Actions** para CI/CD
-
-### Recursos provisionados
-
-- **Azure PostgreSQL Flexible Server**
-- **Network security group para o banco de dados**
-
-### Recursos delegados pelo repo de infra
-
-- **Subnet delegada**
-- **Zona de DNS privada**
-
-### Observações
-
-- Não foram configurados **backups customizados** ou **alta disponibilidade (HA/ZRS)** devido a limitações de crédito e ao caráter acadêmico da atividade.
-- Os **scripts de migration** estão no repo da **API** (e não no repo de DB), pois sobem junto com a aplicação.
-- Utilizamos **Liquibase** para gerenciar migrations.
-
-<h2 id="banco-de-dados">💾 Banco de Dados</h2>
-
-### Modelo Relacional
-
-O sistema utiliza PostgreSQL como banco de dados principal, com o seguinte esquema:
-
-![Diagrama Entidade e Relacionamento](docs/diagrams/DER.svg)
+> 📽️ Vídeo de demonstração da arquitetura: [https://www.youtube.com/watch?v=XgUpOKJjqak](https://www.youtube.com/watch?v=XgUpOKJjqak)<br>
 
 ---
 
-## 🔧 Justificativa da Modelagem
+<h2 id="visao-geral">📋 Visão Geral</h2>
 
-- Separação entre `orders` e `order_items` garante flexibilidade para combos.
-- Índices otimizam consultas de acompanhamento.
-- Enum padroniza categorias e status, evitando inconsistências.
-- Estrutura segue **3FN (Terceira Forma Normal)** → evita redundância e melhora escalabilidade.
+Este repositório contém os scripts Terraform para provisionar os bancos de dados utilizados pelos microsserviços do sistema FoodCore.
+
+### Bancos de Dados
+
+| Microsserviço | Banco | Tipo |
+|---------------|-------|------|
+| **foodcore-order** | PostgreSQL Flexible Server | Relacional |
+| **foodcore-catalog** | PostgreSQL Flexible Server | Relacional |
+| **foodcore-payment** | Azure CosmosDB | NoSQL (Document) |
+
+### Observações Importantes
+
+- **Migrations**: Gerenciadas pelos microsserviços via Liquibase (não neste repositório)
+- **Backups**: Não configurados por limitações de crédito (ambiente acadêmico)
+- **HA/ZRS**: Desabilitado por limitações de assinatura
+
+---
+
+<h2 id="recursos-provisionados">📦 Recursos Provisionados</h2>
+
+| Recurso | Descrição |
+|---------|-----------|
+| **Azure PostgreSQL Flexible Server (Order)** | Banco de dados de pedidos |
+| **Azure PostgreSQL Flexible Server (Catalog)** | Banco de dados de catálogo |
+| **Azure CosmosDB** | Banco de dados de pagamentos |
+| **Network Security Groups** | Segurança de rede para os bancos |
+| **VNET Integration** | Integração com rede virtual |
+
+### Recursos Delegados pelo Repo de Infra
+
+- Subnet delegada para banco de dados
+- Zona de DNS privada
+- VNET principal
+
+---
+
+<h2 id="tecnologias">🔧 Tecnologias</h2>
+
+| Categoria | Tecnologia |
+|-----------|------------|
+| **IaC** | Terraform |
+| **Cloud** | Azure |
+| **Banco Relacional** | PostgreSQL 16 |
+| **Banco NoSQL** | CosmosDB |
+| **CI/CD** | GitHub Actions |
+
+---
+
+<h2 id="modelo-relacional">💾 Modelo Relacional</h2>
+
+<details>
+<summary>Expandir para mais detalhes</summary>
+
+### Diagrama Entidade-Relacionamento
+
+![Diagrama ER](docs/diagrams/DER.svg)
+
+### Justificativa da Modelagem
+
+- **Separação `orders` / `order_items`**: Flexibilidade para combos
+- **Índices**: Otimizam consultas de acompanhamento
+- **Enums**: Padronizam categorias e status
+- **3FN**: Evita redundância e melhora escalabilidade
+
+### Microsserviço Order
+
+```
+orders
+├── id (PK)
+├── customer_id (FK)
+├── status (ENUM)
+├── total_amount
+├── created_at
+└── updated_at
+
+order_items
+├── id (PK)
+├── order_id (FK)
+├── product_id
+├── quantity
+├── unit_price
+└── subtotal
+```
+
+### Microsserviço Catalog
+
+```
+products
+├── id (PK)
+├── name
+├── description
+├── price
+├── category (ENUM)
+├── image_url
+└── active
+
+categories
+├── id (PK)
+├── name
+└── description
+```
 
 </details>
 
 ---
 
-<h3 id="cicd-infra">🔐 Governança e Fluxo de Deploy de Infraestrutura</h3>
+<h2 id="deploy">⚙️ Fluxo de Deploy</h2>
 
-A gestão da infraestrutura segue um processo **automatizado, auditável e controlado** via **Pull Requests** no repositório de provisionamento.
-Esse fluxo garante segurança, rastreabilidade e aprovação formal antes de qualquer mudança aplicada em produção.
+<details>
+<summary>Expandir para mais detalhes</summary>
+
+### Pipeline
+
+1. **Pull Request**
+   - `terraform fmt` e `validate`
+   - `terraform plan`
+
+2. **Revisão e Aprovação**
+   - Mínimo 1 aprovação de CODEOWNER
+   - Verificação do plan
+
+3. **Merge para Main**
+   - `terraform apply -auto-approve`
+
+### Ordem de Provisionamento
+
+```
+1. foodcore-infra  (VNET, Subnets, DNS)
+2. foodcore-db     (Bancos de dados) ← Este repositório
+3. foodcore-auth   (Azure Function)
+4. foodcore-*      (Microsserviços)
+```
+
+</details>
+
+---
+
+<h2 id="contribuicao">🤝 Contribuição</h2>
+
+### Desenvolvimento Local
+
+```bash
+# Clonar repositório
+git clone https://github.com/FIAP-SOAT-TECH-TEAM/foodcore-db.git
+cd foodcore-db/terraform
+
+# Inicializar Terraform
+terraform init
+
+# Validar configuração
+terraform validate
+
+# Gerar plan
+terraform plan -out=tfplan
+```
+
+### Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
 
 ---
 
-### ⚙️ Processo de Alterações
-
-1. **Criação de Pull Request**
-   - Todas as alterações de infraestrutura (novos recursos, updates, ou ajustes de configuração) devem ser propostas via **Pull Request (PR)**.
-   - O PR contém os arquivos `.tf` modificados e uma descrição detalhando o impacto da mudança.
-
-2. **Execução Automática do Terraform Plan**
-   - Ao abrir o PR, o pipeline de CI executa automaticamente o comando:
-
-     ```
-     terraform plan
-     ```
-
-   - Esse passo gera uma **prévia das alterações** que seriam aplicadas (criações, destruições, atualizações).
-   - O resultado do `plan` é exibido diretamente nos logs do pipeline, permitindo revisão técnica pelos aprovadores.
-
-3. **Revisão e Aprovação**
-   - O repositório é **protegido**, exigindo no mínimo **1 aprovação** de um codeowner antes do merge.
-   - Nenhum usuário pode aplicar alterações diretamente na branch principal (`main` ou `master`).
-   - Revisores devem garantir:
-     - Que o `plan` não tenha destruições indevidas (`destroy`)
-     - Que as variáveis e roles estejam corretas
-     - Que os módulos sigam o padrão organizacional
-   - Todos os checks(ex: jobs do github actions, sonarQube, etc..) estipulados nas regras de proteção devem estar passando.
-
-4. **Aplicação no Merge**
-   - Após aprovação e merge do PR, o pipeline executa automaticamente:
-
-     ```
-     terraform apply -auto-approve
-     ```
-
-   - O **Terraform Apply** aplica as alterações descritas no `plan` aprovado, provisionando ou atualizando os recursos no Azure.
-
----
+<div align="center">
+  <strong>FIAP - Pós-graduação em Arquitetura de Software</strong><br>
+  Tech Challenge
+</div>
