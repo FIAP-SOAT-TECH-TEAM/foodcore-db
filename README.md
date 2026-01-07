@@ -1,5 +1,4 @@
 # 🗄️ FoodCore DB
-
 <div align="center">
 
 Provisionamento de bancos de dados do projeto FoodCore via Terraform. Desenvolvido como parte do curso de Arquitetura de Software da FIAP (Tech Challenge).
