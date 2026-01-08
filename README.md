@@ -3,7 +3,7 @@
 <div align="center">
 
 Provisionamento de bancos de dados do projeto FoodCore via Terraform. Desenvolvido como parte do curso de Arquitetura de Software da FIAP (Tech Challenge).
- 
+
 </div>
 
 <div align="center">
@@ -21,7 +21,9 @@ Provisionamento de bancos de dados do projeto FoodCore via Terraform. Desenvolvi
 
 <h2 id="visao-geral">📋 Visão Geral</h2>
 
-Este repositório contém os scripts Terraform para provisionar os bancos de dados utilizados pelos microsserviços do sistema FoodCore.
+Este repositório contém os scripts Terraform responsáveis pelo provisionamento dos bancos de dados utilizados pelos microsserviços do sistema **FoodCore**, garantindo consistência, escalabilidade e aderência às características de cada domínio de negócio.
+
+A estratégia de persistência foi definida com base nas necessidades funcionais e não funcionais de cada microsserviço, equilibrando **integridade relacional**, **flexibilidade de modelo** e **escala operacional**.
 
 ### Bancos de Dados
 
@@ -30,6 +32,11 @@ Este repositório contém os scripts Terraform para provisionar os bancos de dad
 | **foodcore-order** | PostgreSQL Flexible Server | Relacional |
 | **foodcore-catalog** | PostgreSQL Flexible Server | Relacional |
 | **foodcore-payment** | Azure CosmosDB | NoSQL (Document) |
+
+### Estratégia de Persistência
+
+- **PostgreSQL** é utilizado nos domínios que exigem **consistência forte**, **integridade referencial** e **transações ACID**.
+- **Azure Cosmos DB** é utilizado no domínio de pagamentos, priorizando **escalabilidade elástica**, **alta disponibilidade** e **flexibilidade de esquema**.
 
 ### Observações Importantes
 
@@ -44,7 +51,7 @@ Este repositório contém os scripts Terraform para provisionar os bancos de dad
 | Recurso | Descrição |
 |---------|-----------|
 | **Azure PostgreSQL Flexible Server (Order)** | Banco de dados de pedidos |
-| **Azure PostgreSQL Flexible Server (Catalog)** | Banco de dados de catálogo |
+| **Azure PostgreSQL Flexible Server (Catalog)** | Banco de dados de catálogos de produtos |
 | **Azure CosmosDB** | Banco de dados de pagamentos |
 | **Network Security Groups** | Segurança de rede para os bancos |
 | **VNET Integration** | Integração com rede virtual |
@@ -54,7 +61,7 @@ Este repositório contém os scripts Terraform para provisionar os bancos de dad
 - Subnet delegada para banco de dados
 - Zona de DNS privada
 - VNET principal
- 
+
 ---
 
 <h2 id="tecnologias">🔧 Tecnologias</h2>
@@ -63,7 +70,7 @@ Este repositório contém os scripts Terraform para provisionar os bancos de dad
 |-----------|------------|
 | **IaC** | Terraform |
 | **Cloud** | Azure |
-| **Banco Relacional** | PostgreSQL 16 |
+| **Banco Relacional** | PostgreSQL 16 (Flexible Server)|
 | **Banco NoSQL** | CosmosDB |
 | **CI/CD** | GitHub Actions |
 
@@ -122,6 +129,43 @@ categories
 ├── name
 └── description
 ```
+
+### Justificativa da Escolha do PostgreSQL
+
+O PostgreSQL foi adotado nos microsserviços **Catalog** e **Order** por oferecer suporte robusto a integridade relacional, transações ACID e modelagens mais complexas.
+
+#### Catalog (Integridade e Flexibilidade)
+
+- O catálogo de produtos exige **consistência de dados** e **consultas ricas**.
+- O PostgreSQL permite o uso do tipo **JSONB**, viabilizando o armazenamento de atributos variáveis de produtos sem perda de performance, utilizando índices **GIN**.
+- Combina estrutura relacional com flexibilidade semântica.
+
+#### Order (Transações ACID)
+
+- O microsserviço de pedidos é o núcleo transacional do sistema.
+- O PostgreSQL garante:
+  - Atomicidade no registro de pedidos e itens
+  - Integridade via chaves estrangeiras
+  - Controle de concorrência com **MVCC**
+- Evita cenários inconsistentes, como pedidos incompletos ou corrompidos.
+
+### Microsserviço Payment – Azure Cosmos DB
+
+O domínio de pagamentos utiliza o **Azure Cosmos DB** por suas características de alta disponibilidade, baixa latência e flexibilidade de esquema.
+
+#### Justificativa da Escolha
+
+- **Escalabilidade e Disponibilidade**
+  - Pagamentos podem sofrer picos imprevisíveis.
+  - O Cosmos DB oferece escalabilidade elástica e SLA de **99,999%**, reduzindo riscos no checkout.
+
+- **Modelo de Dados Flexível**
+  - Gateways e adquirentes retornam payloads heterogêneos.
+  - O modelo documental permite armazenar essas variações sem migrações constantes de esquema.
+
+- **Distribuição Global**
+  - Suporte nativo à replicação multi-região.
+  - Facilita expansão internacional e adequação a legislações de soberania de dados.
 
 </details>
 
