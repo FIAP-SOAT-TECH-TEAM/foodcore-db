@@ -4,7 +4,7 @@
 
 Provisionamento de bancos de dados do projeto FoodCore via Terraform. Desenvolvido como parte do curso de Arquitetura de Software da FIAP (Tech Challenge).
  
-</div>
+</div> 
 
 <div align="center">
   <a href="#visao-geral">Visão Geral</a> •
