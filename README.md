@@ -76,7 +76,32 @@ A estratégia de persistência foi definida com base nas necessidades funcionais
 
 ---
 
-<h2 id="modelo-relacional">💾 Modelo Relacional</h2>
+<h2 id="debitos-tecnicos">⚠️ Débitos Técnicos</h2>
+
+<details>
+<summary>Expandir para mais detalhes</summary>
+
+### 💡 Observações sobre Custos
+
+> Alguns recursos foram implementados com downgrade ou comentados devido ao alto custo ou limitações da assinatura Azure For Students/AWS Academy:
+>
+> - **Azure Service Bus**: Private Endpoint apenas disponível com SKU Premium (custo elevado)
+> - **AKS**: Node pools reduzidos para economia de créditos
+> - **HA/ZRS**: Desabilitado por limitações de assinatura
+>
+> A infraestrutura ideal foi implementada, com alguns trechos comentados para viabilizar o desenvolvimento sem esgotar créditos.
+
+## Regiões Permitidas
+>
+> A assinatura **Azure For Students** impõe restrições de Policy que limitam a criação de recursos às seguintes regiões:
+>
+> <img src=".github/images/permitted.jpeg" alt="permitted regions" />
+
+</details>
+
+---
+
+<h2 id="modelo-relacional">📊 Diagramas</h2>
 
 <details>
 <summary>Expandir para mais detalhes</summary>
@@ -85,7 +110,7 @@ A estratégia de persistência foi definida com base nas necessidades funcionais
 
 ![Diagrama ER](docs/diagrams/DER.svg)
 
-### Justificativa da Modelagem
+> ⚠️ O microsserviço de pagamento não utiliza um banco de dados relacional, e cada microsserviço tem sua própria instância física. Optamos por desenvolver um MER contendo todos eles e seus "relacionamentos" via `PK` e `FK` apenas para exemplificar suas relações. Na prática, cada microsserviço é independente e se comunica apenas via requisições HTTP ou mensageria.
 
 - **Separação `orders` / `order_items`**: Flexibilidade para combos
 - **Índices**: Otimizam consultas de acompanhamento
@@ -130,17 +155,27 @@ categories
 └── description
 ```
 
-### Justificativa da Escolha do PostgreSQL
+</details>
 
-O PostgreSQL foi adotado nos microsserviços **Catalog** e **Order** por oferecer suporte robusto a integridade relacional, transações ACID e modelagens mais complexas.
+---
 
-#### Catalog (Integridade e Flexibilidade)
+<h2 id="modelo-relacional">❓ Justificativas de escolha</h2>
+
+<details>
+<summary>Expandir para mais detalhes</summary>
+<br>
+  
+O `PostgreSQL` foi adotado nos microsserviços **Catalog** e **Order** por oferecer suporte robusto a integridade relacional, transações ACID e modelagens mais complexas. Em contrapartida, `Azure Cosmos DB (NoSQL)` foi adotado para **Payment** por sua flexibilidade e escalabilidade nativa.
+
+#### Catalog (PostgreSQL)
 
 - O catálogo de produtos exige **consistência de dados** e **consultas ricas**.
 - O PostgreSQL permite o uso do tipo **JSONB**, viabilizando o armazenamento de atributos variáveis de produtos sem perda de performance, utilizando índices **GIN**.
 - Combina estrutura relacional com flexibilidade semântica.
 
-#### Order (Transações ACID)
+> ℹ️ Combinação Teorema PACELC esperada: **P:C / E:C**
+
+#### Order (PostgreSQL)
 
 - O microsserviço de pedidos é o núcleo transacional do sistema.
 - O PostgreSQL garante:
@@ -149,23 +184,23 @@ O PostgreSQL foi adotado nos microsserviços **Catalog** e **Order** por oferece
   - Controle de concorrência com **MVCC**
 - Evita cenários inconsistentes, como pedidos incompletos ou corrompidos.
 
-### Microsserviço Payment – Azure Cosmos DB
+> ℹ️ Combinação Teorema PACELC esperada: **P:C / E:C**
 
-O domínio de pagamentos utiliza o **Azure Cosmos DB** por suas características de alta disponibilidade, baixa latência e flexibilidade de esquema.
+#### Payment (Azure Cosmos DB)
 
-#### Justificativa da Escolha
-
-- **Escalabilidade e Disponibilidade**
+- Escalabilidade e Disponibilidade:
   - Pagamentos podem sofrer picos imprevisíveis.
   - O Cosmos DB oferece escalabilidade elástica e SLA de **99,999%**, reduzindo riscos no checkout.
 
-- **Modelo de Dados Flexível**
+- Modelo de Dados Flexível:
   - Gateways e adquirentes retornam payloads heterogêneos.
   - O modelo documental permite armazenar essas variações sem migrações constantes de esquema.
 
-- **Distribuição Global**
+- Distribuição Global:
   - Suporte nativo à replicação multi-região.
   - Facilita expansão internacional e adequação a legislações de soberania de dados.
+
+> ℹ️ Combinação Teorema PACELC esperada: **P:A / E:L**
 
 </details>
 
@@ -179,30 +214,38 @@ O domínio de pagamentos utiliza o **Azure Cosmos DB** por suas características
 ### Pipeline
 
 1. **Pull Request**
-   - `terraform fmt` e `validate`
-   - `terraform plan`
+   - Preencher template de pull request adequadamente
 
 2. **Revisão e Aprovação**
    - Mínimo 1 aprovação de CODEOWNER
-   - Verificação do plan
 
 3. **Merge para Main**
-   - `terraform apply -auto-approve`
+
+### Proteções
+
+- Branch `main` protegida
+- Nenhum push direto permitido
+- Todos os checks devem passar
 
 ### Ordem de Provisionamento
 
 ```
-1. foodcore-infra  (VNET, Subnets, DNS)
-2. foodcore-db     (Bancos de dados) ← Este repositório
-3. foodcore-auth   (Azure Function)
-4. foodcore-*      (Microsserviços)
+1. foodcore-infra        (AKS, VNET)
+2. foodcore-db           (Bancos de dados)
+3. foodcore-auth           (Azure Function Authorizer)
+4. foodcore-observability (Serviços de Observabilidade)
+5. foodcore-order            (Microsserviço de pedido)
+6. foodcore-payment            (Microsserviço de pagamento)
+7. foodcore-catalog            (Microsserviço de catálogo)
 ```
+
+> ⚠️ Opcionalmente, as pipelines do repositório `foodcore-shared` podem ser executadas para publicação de um novo package. Atualizar os microsserviços para utilazarem a nova versão do pacote.
 
 </details>
 
 ---
 
-<h2 id="contribuicao">🤝 Contribuição</h2>
+<h2 id="instalacao">🚀 Instalação e Uso</h2>
 
 ### Desenvolvimento Local
 
@@ -221,6 +264,17 @@ terraform validate
 terraform plan -out=tfplan
 ```
 
+---
+
+<h2 id="contribuicao">🤝 Contribuição</h2>
+
+### Fluxo de Contribuição
+
+1. Crie uma branch a partir de `main`
+2. Implemente suas alterações
+3. Abra um Pull Request
+4. Aguarde aprovação de um CODEOWNER
+
 ### Licença
 
 Este projeto está licenciado sob a [MIT License](LICENSE).
@@ -229,5 +283,5 @@ Este projeto está licenciado sob a [MIT License](LICENSE).
 
 <div align="center">
   <strong>FIAP - Pós-graduação em Arquitetura de Software</strong><br>
-  Tech Challenge
+  Tech Challenge 4
 </div>
