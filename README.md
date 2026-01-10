@@ -11,7 +11,10 @@ Provisionamento de bancos de dados do projeto FoodCore via Terraform. Desenvolvi
   <a href="#recursos-provisionados">Recursos Provisionados</a> •
   <a href="#tecnologias">Tecnologias</a> •
   <a href="#modelo-relacional">Modelo Relacional</a> •
+  <a href="#justificativa">Justificativas de escolha</a> •
   <a href="#deploy">Fluxo de Deploy</a> •
+  <a href="#instalacao-e-uso">Instalação e Uso</a> •
+  <a href="#debitos-tecnicos">Débitos Técnicos</a> •
   <a href="#contribuicao">Contribuição</a>
 </div><br>
 
@@ -76,31 +79,6 @@ A estratégia de persistência foi definida com base nas necessidades funcionais
 
 ---
 
-<h2 id="debitos-tecnicos">⚠️ Débitos Técnicos</h2>
-
-<details>
-<summary>Expandir para mais detalhes</summary>
-
-### 💡 Observações sobre Custos
-
-> Alguns recursos foram implementados com downgrade ou comentados devido ao alto custo ou limitações da assinatura Azure For Students/AWS Academy:
->
-> - **Azure Service Bus**: Private Endpoint apenas disponível com SKU Premium (custo elevado)
-> - **AKS**: Node pools reduzidos para economia de créditos
-> - **HA/ZRS**: Desabilitado por limitações de assinatura
->
-> A infraestrutura ideal foi implementada, com alguns trechos comentados para viabilizar o desenvolvimento sem esgotar créditos.
-
-## Regiões Permitidas
->
-> A assinatura **Azure For Students** impõe restrições de Policy que limitam a criação de recursos às seguintes regiões:
->
-> <img src=".github/images/permitted.jpeg" alt="permitted regions" />
-
-</details>
-
----
-
 <h2 id="modelo-relacional">📊 Diagramas</h2>
 
 <details>
@@ -159,12 +137,12 @@ categories
 
 ---
 
-<h2 id="modelo-relacional">❓ Justificativas de escolha</h2>
+<h2 id="justificativa">❓ Justificativas de escolha</h2>
 
 <details>
 <summary>Expandir para mais detalhes</summary>
 <br>
-  
+
 O `PostgreSQL` foi adotado nos microsserviços **Catalog** e **Order** por oferecer suporte robusto a integridade relacional, transações ACID e modelagens mais complexas. Em contrapartida, `Azure Cosmos DB (NoSQL)` foi adotado para **Payment** por sua flexibilidade e escalabilidade nativa.
 
 #### Catalog (PostgreSQL)
@@ -245,7 +223,7 @@ O `PostgreSQL` foi adotado nos microsserviços **Catalog** e **Order** por ofere
 
 ---
 
-<h2 id="instalacao">🚀 Instalação e Uso</h2>
+<h2 id="instalacao-e-uso">🚀 Instalação e Uso</h2>
 
 ### Desenvolvimento Local
 
@@ -263,6 +241,30 @@ terraform validate
 # Gerar plan
 terraform plan -out=tfplan
 ```
+
+---
+<h2 id="debitos-tecnicos">⚠️ Débitos Técnicos</h2>
+
+<details>
+<summary>Expandir para mais detalhes</summary>
+
+### 💡 Observações sobre Custos
+
+> Alguns recursos foram implementados com downgrade ou comentados devido ao alto custo ou limitações da assinatura Azure For Students/AWS Academy:
+>
+> - **Azure Service Bus**: Private Endpoint apenas disponível com SKU Premium (custo elevado)
+> - **AKS**: Node pools reduzidos para economia de créditos
+> - **HA/ZRS**: Desabilitado por limitações de assinatura
+>
+> A infraestrutura ideal foi implementada, com alguns trechos comentados para viabilizar o desenvolvimento sem esgotar créditos.
+
+## Regiões Permitidas
+>
+> A assinatura **Azure For Students** impõe restrições de Policy que limitam a criação de recursos às seguintes regiões:
+>
+> <img src=".github/images/permitted.jpeg" alt="permitted regions" />
+
+</details>
 
 ---
 
