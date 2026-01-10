@@ -8,6 +8,7 @@ Provisionamento de bancos de dados do projeto FoodCore via Terraform. Desenvolvi
 
 <div align="center">
   <a href="#visao-geral">Visão Geral</a> •
+  <a href="#sytem-design">System Design</a> •
   <a href="#recursos-provisionados">Recursos Provisionados</a> •
   <a href="#tecnologias">Tecnologias</a> •
   <a href="#modelo-relacional">Modelo Relacional</a> •
@@ -46,6 +47,12 @@ A estratégia de persistência foi definida com base nas necessidades funcionais
 - **Migrations**: Gerenciadas pelos microsserviços via Liquibase (não neste repositório)
 - **Backups**: Não configurados por limitações de crédito (ambiente acadêmico)
 - **HA/ZRS**: Desabilitado por limitações de assinatura
+
+---
+
+<h2 id="sytem-design">🧠 System Design</h2>
+
+![System Design](docs/diagrams/system-design.svg)
 
 ---
 
