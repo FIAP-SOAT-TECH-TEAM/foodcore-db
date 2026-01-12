@@ -154,20 +154,20 @@ O `PostgreSQL` foi adotado nos microsserviços **Catalog** e **Order** por ofere
 
 #### Catalog (PostgreSQL)
 
-- O catálogo de produtos exige **consistência de dados** e **consultas ricas**.
-- O PostgreSQL permite o uso do tipo **JSONB**, viabilizando o armazenamento de atributos variáveis de produtos sem perda de performance, utilizando índices **GIN**.
-- Combina estrutura relacional com flexibilidade semântica.
+- Microsserviço com forte exigência de **consistência de dados** e **consultas complexas**.
+- Mantém um **schema relacional rico**, com múltiplos relacionamentos e regras de integridade.
+- Requer **controle de concorrência rigoroso** para garantir o processamento correto de eventos simultâneos de débito e crédito de estoque para um mesmo item.
+- Utiliza **MVCC** e transações **ACID** para evitar condições de corrida e estados inválidos.
 
 > ℹ️ Combinação Teorema PACELC esperada: **P:C / E:C**
 
 #### Order (PostgreSQL)
 
-- O microsserviço de pedidos é o núcleo transacional do sistema.
-- O PostgreSQL garante:
-  - Atomicidade no registro de pedidos e itens
-  - Integridade via chaves estrangeiras
-  - Controle de concorrência com **MVCC**
-- Evita cenários inconsistentes, como pedidos incompletos ou corrompidos.
+- Microsserviço central e **núcleo transacional** do sistema.
+- Exige **consistência forte** durante todo o ciclo de vida do pedido.
+- Mantém um **schema relacional estruturado**, com integridade garantida por chaves primárias e estrangeiras.
+- Requer **controle de concorrência** para criação e atualização de pedidos e seus itens.
+- Utiliza **MVCC** e transações **ACID** para evitar pedidos incompletos, inconsistentes ou corrompidos.
 
 > ℹ️ Combinação Teorema PACELC esperada: **P:C / E:C**
 
@@ -224,7 +224,7 @@ O `PostgreSQL` foi adotado nos microsserviços **Catalog** e **Order** por ofere
 7. foodcore-catalog            (Microsserviço de catálogo)
 ```
 
-> ⚠️ Opcionalmente, as pipelines do repositório `foodcore-shared` podem ser executadas para publicação de um novo package. Atualizar os microsserviços para utilazarem a nova versão do pacote.
+> ⚠️ Opcionalmente, as pipelines do repositório `foodcore-shared` podem ser executadas para publicação de um novo package. Atualizar os microsserviços para utilizarem a nova versão do pacote.
 
 </details>
 
